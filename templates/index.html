@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>k.dot store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar centered-text">
+        <div class="left">
+            <img src="{{ url_for('static', filename='images/store_logo.png') }}" alt="logo" class="logo">
+            <p><b>k.dot store</b></p>
+        </div>
+        <div class="center">
+            <h3>Products</h3>
+        </div>
+        <div class="right">
+            <p>Cart: {{ cart | dict_sum }}</p>
+            <p>Total: ${{ total_price }}</p>
+        </div>
+    </nav>
+        
+    <div class="products">
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/DAMN_lp.jpg') }}" alt="DAMN. LP">
+            <p>DAMN. LP<br>Kendrick Lamar</p>
+            <p>$20.99</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="1">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/good_kid_maad_city_alternate_cover_cassette.JPG') }}" alt="Good Kid Maad City Alternate Cover Cassette">
+            <p>'good kid, m.A.A.d city' Cassette<br>Kendrick Lamar</p>
+            <p>$17.00</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="2">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/mr_morale_cd.JPG') }}" alt="Mr Morale CD">
+            <p>'Mr. Morale & The Big Steppers' CD<br>Kendrick Lamar</p>
+            <p>$14.00</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="3">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/good_kid_maad_city_alternate_cover_lp.JPG') }}" alt="Good Kid Maad City Alternate Cover LP">
+            <p>'good kid, m.A.A.d city' LP<br>Kendrick Lamar</p>
+            <p>$30.99</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="4">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/to_pimp_a_butterfly_cd.JPG') }}" alt="To Pimp A Butterfly CD">
+            <p>To Pimp A Butterfly CD<br>Kendrick Lamar</p>
+            <p>$34.50</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="5">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/unmastered_lp.JPG') }}" alt="Kendrick Lamar untitled unmastered Vinyl">
+            <p>Kendrick Lamar - untitled unmastered. Vinyl<br>Kendrick Lamar</p>
+            <p>$16.50</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="6">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/mr_morale_cassette.jpg') }}" alt="Mr Morale Cassette">
+            <p>Mr. Morale Exclusive Black Cassette<br>Kendrick Lamar</p>
+            <p>$25.99</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="7">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/good_kid_maad_city_black_vinyl.jpg') }}" alt="Good Kid Maad City Black Vinyl">
+            <p>'good kid, m.A.A.d city' Standard Black Vinyl<br>Kendrick Lamar</p>
+            <p>$30.00</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="8">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+        <div class="product">
+            <img src="{{ url_for('static', filename='images/unmastered_cd.jpg') }}" alt="untitled unmastered CD">
+            <p>untitled unmastered. CD<br>Kendrick Lamar</p>
+            <p>$30.00</p>
+            <form action="{{ url_for('add_to_cart') }}" method="post">
+                <input type="hidden" name="product_id" value="9">
+                <input type="submit" value="Add to Cart" class="add-to-cart-btn">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(233, 232, 232, 0.87);
+}
+
+.navbar .left {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(233, 232, 232, 0.87); 
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.navbar .logo {
+    height: 50px;
+    width: auto;
+    margin-right: 20px;
+}
+
+.navbar.centered-text {
+    text-align: center;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.product {
+    border: 1px solid rgba(233, 232, 232, 0.87);
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.add-to-cart-btn {
+    background-color: #d19b26;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover,
+.add-to-cart-btn:hover {
+    background-color: #e0a62a;
+}
