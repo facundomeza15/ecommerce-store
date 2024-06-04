@@ -20,8 +20,7 @@
             <h3>Products</h3>
         </div>
         <div class="right">
-            <p>Cart: {{ cart | dict_sum }}</p>
-            <p>Total: ${{ total_price }}</p>
+            <p>Cart: {{ cart | dict_sum }} items</p>
         </div>
     </nav>
         
@@ -101,7 +100,7 @@
         <div class="product">
             <img src="{{ url_for('static', filename='images/unmastered_cd.jpg') }}" alt="untitled unmastered CD">
             <p>untitled unmastered. CD<br>Kendrick Lamar</p>
-            <p>$30.00</p>
+            <p>$15.00</p>
             <form action="{{ url_for('add_to_cart') }}" method="post">
                 <input type="hidden" name="product_id" value="9">
                 <input type="submit" value="Add to Cart" class="add-to-cart-btn">
