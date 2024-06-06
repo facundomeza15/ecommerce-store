@@ -4,6 +4,7 @@ import os
 
 
 app = Flask(__name__)
+app.secret_key = 'mock_key'
 
 database_file = os.path.join(app.instance_path, "products.db")
 if not os.path.exists(database_file):
