@@ -3,18 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Checkout - k.dot store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Checkout</h1>
-    <ul>
-        {% for product_id, quantity in cart.items() %}
-            <li>Product: {{ product_id }}, Quantity: {{ quantity }}</li>
-        {% endfor %}
-    </ul>
-    <p>Total Price: ${{ total_price }}</p>
-    <form action="{{ url_for('checkout') }}" method="post">
-        <input type="submit" value="Confirm Order">
-    </form>
+    <nav class="navbar centered-text">
+        <div class="left">
+            <a href="/">
+                <img src="{{ url_for('static', filename='images/store_logo.png') }}" alt="logo" class="logo">
+            </a>
+            <p><b>k.dot store</b></p>
+        </div>
+        <div class="center">
+            <h3>Checkout</h3>
+        </div>
+        <div class="right">
+            <p>Cart: {{ cart | length }} items</p>
+        </div>
+        <div class="cart">
+            <a href="/checkout">
+                <img src="{{ url_for('static', filename='images/cart.png') }}" alt="cart">
+                <span class="cart-count">{{ cart | dict_sum }}</span>
+            </a>
+        </div>
+    </nav>
+    
+    <div class="checkout-container">
+        <div class="checkout-left">
+            <h2>Express Checkout</h2>
+            <div class="express-checkout">
+                <button class="paypal-btn">PayPal</button>
+                <button class="gpay-btn">Google Pay</button>
+            </div>
+            <p>OR</p>
+            <div class="contact-info">
+                <h3>Contact</h3>
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="shipping-address">
+                <h3>Shipping Address</h3>
+                <form action="{{ url_for('checkout') }}" method="post">
+                    <input type="text" placeholder="First Name (optional)">
+                    <input type="text" placeholder="Last Name">
+                    <input type="text" placeholder="Address">
+                    <input type="text" placeholder="Apartment, suite, etc. (optional)">
+                    <input type="text" placeholder="Postal Code">
+                    <input type="text" placeholder="City">
+                    <input type="text" placeholder="Province">
+                    <input type="text" placeholder="Phone">
+                    <button type="submit">Continue to Shipping</button>
+                </form>
+            </div>
+        </div>
+        <div class="checkout-right">
+            <h2>Order Summary</h2>
+            <div class="order-summary">
+                <ul>
+                    {% for item in cart_items %}
+                        <li>{{ item.name }} x {{ item.quantity }} - ${{ item.price * item.quantity }}</li>
+                    {% endfor %}
+                </ul>
+                <p><b>Total Price: ${{ total_price }}</b></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

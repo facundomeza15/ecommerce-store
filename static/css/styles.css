@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Space Mono", monospace;
     background-color: rgba(233, 232, 232, 0.87);
 }
 
@@ -24,7 +24,7 @@ body {
     font-family: "Space Mono", monospace;
     font-weight: 400;
     font-style: normal;
-  }
+}
 
 .products {
     display: flex;
@@ -37,10 +37,15 @@ body {
 }
 
 .product {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
     border: 1px solid rgba(233, 232, 232, 0.87);
-    padding: 10px;
-    width: 200px;
+    padding: 20px;
+    width: 250px;
     text-align: center;
+    background-color: rgba(233, 232, 232, 0.87);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .product img {
@@ -49,14 +54,125 @@ body {
 }
 
 .add-to-cart-btn {
-    background-color: #d19b26;
+    background-color: black;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    align-self: center; 
 }
 
 button:hover,
 .add-to-cart-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.cart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.cart img {
+    height: 50px; 
+    width: auto;
+    cursor: pointer;
+}
+
+.cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkout {
+    padding: 20px;
+    text-align: center;
+    font-family: "Space Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.checkout-left, .checkout-right {
+    width: 45%;
+}
+
+.express-checkout {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paypal-btn, .gpay-btn {
+    width: 45%;
+    padding: 10px;
+    background-color: #0070ba;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+.gpay-btn {
+    background-color: #000000;
+}
+
+.contact-info, .shipping-address {
+    margin-top: 20px;
+}
+
+.contact-info input, .shipping-address input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.shipping-address form {
+    display: flex;
+    flex-direction: column;
+}
+
+.shipping-address button {
+    background-color: #d19b26;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.shipping-address button:hover {
     background-color: #e0a62a;
 }
+
+.order-summary {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.order-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-summary ul li {
+    padding: 5px 0;
+}
+
