@@ -22,7 +22,6 @@ def add_to_cart():
             cart[product_id] = 1
     return redirect(url_for("home"))
 
-
 @app.route("/checkout")
 def checkout():
     total_price = 0
