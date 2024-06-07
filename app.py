@@ -10,6 +10,11 @@ def home():
     products = Product.query.all()
     return render_template("index.html", cart=cart, products=products)
 
+@app.route("/login")
+def login():
+    cart = session.get("cart", {})
+    return render_template("login.html", cart=cart)
+
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     product_id = request.form.get("product_id")

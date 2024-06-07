@@ -1,0 +1,18 @@
+<nav class="navbar centered-text">
+    <div class="left">
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/store_logo.png') }}" alt="logo" class="logo">
+        </a>
+        <p><b>k.dot store</b></p>
+        <a href="/" class="products-link">[ products ]</a>
+    <div class="right">
+        <a href="/login" class="login-btn">Log in</a>
+        <p>Cart: {{ cart | dict_sum }} items</p>
+    </div>
+    <div class="cart">
+        <a href="/checkout">
+            <img src="{{ url_for('static', filename='images/cart.png') }}" alt="cart">
+            <span class="cart-count">{{ cart| dict_sum }}</span>
+        </a>
+    </div>
+</nav>
