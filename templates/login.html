@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in - k.dot store</title>
+    <title>Login - k.dot store</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -17,7 +16,7 @@
     <div class="login-container">
         <img src="{{ url_for('static', filename='images/login-img.png') }}" alt="Log in" class="login-image">
         <div class="login-box">
-            <h2>Login</h2>
+            <h2>Log in.</h2>
             <form action="/login" method="post">
                 <input type="text" name="username" placeholder="Username or Email" required>
                 <input type="password" name="password" placeholder="Password" required>

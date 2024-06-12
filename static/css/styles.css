@@ -226,11 +226,13 @@ button:hover,
 }
 
 .login-box input[type="text"],
+.login-box input[type="email"],
 .login-box input[type="password"] {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 93%; 
 }
 
 .login-box button {
@@ -271,7 +273,7 @@ button:hover,
     display: inline-block;
     padding: 10px 10px;
     background-color: black; 
-    color: white !important; /*this is getting overriden somewhere*/;  
+    color: white !important; /*this is getting overridden somewhere*/;  
     border: none;
     text-decoration: none;
     cursor: pointer;
@@ -283,7 +285,7 @@ button:hover,
 
 .login-btn:hover {
     background-color: white;
-    color: black !important; /*also getting overriden*/;  
+    color: black !important; /*also getting overridden*/;  
 }
 
 .underline-link {
@@ -306,7 +308,57 @@ button:hover,
     text-decoration: none; 
     margin-left: 20px;
 }
+
 .left {
     display: flex; 
     align-items: center;
+}
+
+.tooltip {
+    text-align: center;
+    border-radius: 6px;
+    z-index: 1;
+    font-size: 12px;
+}
+
+.tooltip::after {
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.tooltip-top::after {
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip-bottom::after {
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip-left::after {
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+}
+
+.tooltip-right::after {
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+}
+
+.tooltip-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.error-message {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }

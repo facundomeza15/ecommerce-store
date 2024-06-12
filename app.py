@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from database import db, app
 from insert_products_data import insert_products
-from models import Product
+from models import Product, User
+from werkzeug.security import generate_password_hash
+from sqlalchemy import text
 
 
 @app.route("/")
@@ -14,6 +16,45 @@ def home():
 def login():
     cart = session.get("cart", {})
     return render_template("login.html", cart=cart)
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if password != confirm_password:
+            return "Passwords don't match."
+
+        
+        if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+            return "Username or email already exists."
+
+        new_user = User(username=username, email=email)
+        new_user.set_password(password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for("login"))
+
+    cart = session.get("cart", {})
+    return render_template("register.html", cart=cart)
+
+@app.route("/check_username", methods=["POST"])
+def check_username():
+    username = request.json.get('username')
+    user = User.query.filter_by(username=username).first()
+    return jsonify({"available": user is None})
+
+@app.route("/check_email", methods=["POST"])
+def check_email():
+    email = request.json.get('email')
+    user = User.query.filter_by(email=email).first()
+    return jsonify({"available": user is None})
+
 
 @app.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
@@ -54,6 +95,11 @@ def dict_sum(d):
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()  
-        insert_products()  
+        with db.engine.connect() as conn:
+            conn.execute(text("CREATE TABLE IF NOT EXISTS product (id INTEGER PRIMARY KEY AUTOINCREMENT, product_name VARCHAR(80), price FLOAT)"))
+        with db.get_engine(app, bind='users').connect() as conn:
+            conn.execute(text("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(80) UNIQUE, email VARCHAR(120) UNIQUE, password_hash VARCHAR(128))"))
+    #only add products if the products table is empty
+        if Product.query.first is None:
+            insert_products() 
     app.run()
