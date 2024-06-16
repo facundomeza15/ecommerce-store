@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration complete - k.dot store</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    
+    <div class="success-container">
+        <img src="{{ url_for('static', filename='images/registration_success_logo.png') }}" alt="Success" class="registration-image">
+        <h2>Registration Successful!</h2>
+        <p><b>User:</b> {{ username }}</p>
+        <p><b>Email: </b>{{ email }}</p>
+        <p><a href="/login" class="underline-link">[ click here to log in ]</a></p>
+    </div>
+</body>
+</html>

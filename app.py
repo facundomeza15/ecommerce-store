@@ -1,10 +1,47 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from database import db, app
 from insert_products_data import insert_products
 from models import Product, User
 from werkzeug.security import generate_password_hash
 from sqlalchemy import text
 
+# initialize Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'  # Redirect to login if a login is required
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+def inject_user():
+    return dict(current_user=current_user)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    cart = session.get("cart", {})
+
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = User.query.filter_by(username=username).first()
+        if user and user.check_password(password):
+            login_user(user)
+            flash("Login successful!")
+            return redirect(url_for("home"))
+        else:
+            flash("Invalid username or password.")
+
+    return render_template("login.html", cart=cart)
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Logout successful!")
+    return redirect(url_for("login"))
 
 @app.route("/")
 def home():
@@ -12,13 +49,12 @@ def home():
     products = Product.query.all()
     return render_template("index.html", cart=cart, products=products)
 
-@app.route("/login")
-def login():
-    cart = session.get("cart", {})
-    return render_template("login.html", cart=cart)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    cart = session.get("cart", {})
+
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
@@ -37,11 +73,16 @@ def register():
 
         db.session.add(new_user)
         db.session.commit()
+        
+        return render_template("register_success.html", username=username, email=email, cart=cart)
 
-        return redirect(url_for("login"))
-
-    cart = session.get("cart", {})
     return render_template("register.html", cart=cart)
+
+@app.route("/register_success")
+def register_success():
+    username = request.args.get("username")
+    email = request.args.get("email")
+    return render_template("register_success.html", username=username, email=email)
 
 @app.route("/check_username", methods=["POST"])
 def check_username():

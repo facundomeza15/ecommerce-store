@@ -8,7 +8,12 @@
     <div class="center">
     </div>
     <div class="right">
-        <a href="/login" class="login-btn">Log in</a>
+        {% if current_user.is_authenticated %}
+            <span class="username">Logged in as: [ {{ current_user.username }} ]</span>
+            <a href="{{ url_for('logout') }}" class="login-btn">Log out</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="login-btn">Log in</a>
+        {% endif %}
         <p>Cart: {{ cart | dict_sum }} items</p>
     </div>
     <div class="cart">
