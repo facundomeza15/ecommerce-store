@@ -262,7 +262,7 @@ button:hover,
 }
 
 .login-box p a {
-    color: black;
+    color: gray;
     text-decoration: none;
 }
 
@@ -295,6 +295,15 @@ button:hover,
 
 .underline-link {
     text-decoration: underline;
+}
+
+.links-container .reset-password {
+    text-align: right;
+}
+
+.links-container .register-link {
+    text-align: center;
+    color: black;
 }
 
 .login-container {
@@ -397,4 +406,20 @@ button:hover,
     width: 600px;
     height: auto;
     margin: 20px;
+}
+
+.flash-error {
+    font-size: 12px;
+    color: red;
+    list-style: none;
+    text-align: right;
+    padding: 10px;
+}
+
+.flash.success {
+    font-size: 12px;
+    color: green;
+    list-style: none;
+    text-align: right;
+    padding: 10px;
 }

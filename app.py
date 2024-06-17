@@ -6,10 +6,10 @@ from models import Product, User
 from werkzeug.security import generate_password_hash
 from sqlalchemy import text
 
-# initialize Flask-Login
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'  # Redirect to login if a login is required
+login_manager.login_view = 'login'  
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -22,19 +22,20 @@ def inject_user():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     cart = session.get("cart", {})
+    flash_message = None
 
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         user = User.query.filter_by(username=username).first()
+
         if user and user.check_password(password):
             login_user(user)
-            flash("Login successful!")
             return redirect(url_for("home"))
         else:
-            flash("Invalid username or password.")
+            flash_message = "Invalid username or password."
 
-    return render_template("login.html", cart=cart)
+    return render_template("login.html", cart=cart, flash_message=flash_message)
 
 @app.route("/logout")
 @login_required
@@ -134,13 +135,36 @@ def checkout():
 def dict_sum(d):
     return sum(d.values())
 
+@app.route("/reset_password", methods=["GET", "POST"])
+def reset_password():
+    cart = session.get("cart", {})
+    flash_message = None
+    flash_category = None
+
+    if request.method == 'POST':
+        username = request.form['username']
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        user = User.query.filter_by(username=username).first()
+        
+        if user and user.check_password(current_password):
+            user.set_password(new_password)
+            db.session.commit()
+            flash_message = 'Your password has been updated.'
+            flash_category = 'success'
+        else:
+            flash_message = 'Current password or username is incorrect.'
+            flash_category = 'error'
+
+    return render_template('reset_password.html', cart=cart, flash_message=flash_message, flash_category=flash_category)
+
 if __name__ == "__main__":
     with app.app_context():
         with db.engine.connect() as conn:
             conn.execute(text("CREATE TABLE IF NOT EXISTS product (id INTEGER PRIMARY KEY AUTOINCREMENT, product_name VARCHAR(80), price FLOAT)"))
         with db.get_engine(app, bind='users').connect() as conn:
             conn.execute(text("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(80) UNIQUE, email VARCHAR(120) UNIQUE, password_hash VARCHAR(128))"))
-    #only add products if the products table is empty
+        #only add products if the products table is empty
         if Product.query.first is None:
             insert_products() 
     app.run()
