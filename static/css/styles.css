@@ -377,6 +377,19 @@ button:hover,
     margin-bottom: 20px;
 }
 
+.underline-link {
+    text-decoration: underline;
+}
+
+.registration-image {
+    max-width: 100px; 
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; 
+    padding-bottom: 20px; 
+}
+
 .success-container {
     display: flex;
     flex-direction: column;
@@ -394,18 +407,6 @@ button:hover,
 
 .success-container p {
     margin-bottom: 10px;
-}
-
-.underline-link {
-    text-decoration: underline;
-}
-
-.registration-image {
-    position: absolute;
-    top: 10px;
-    width: 600px;
-    height: auto;
-    margin: 20px;
 }
 
 .flash-error {
